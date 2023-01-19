@@ -7,6 +7,8 @@ import android.graphics.Rect;
 
 import java.util.Random;
 
+//друг
+
 public class Friend {
     private Bitmap bitmap;
     private int x;

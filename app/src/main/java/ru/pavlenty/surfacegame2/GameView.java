@@ -19,6 +19,8 @@ public class GameView extends SurfaceView implements Runnable {
     volatile boolean playing;
     private Thread gameThread = null;
     private Player player;
+    private Friend friend;
+    private Enemy enemy;
 
     private Paint paint;
     private Canvas canvas;
@@ -52,6 +54,10 @@ public class GameView extends SurfaceView implements Runnable {
     public GameView(Context context, int screenX, int screenY) {
         super(context);
         player = new Player(context, screenX, screenY);
+        friend = new Friend(context, screenX, screenY);
+        enemy = new Enemy(context, screenX, screenY);
+
+
 
         surfaceHolder = getHolder();
         paint = new Paint();
@@ -139,6 +145,18 @@ public class GameView extends SurfaceView implements Runnable {
                     player.getY(),
                     paint);
 
+            canvas.drawBitmap(
+                    friend.getBitmap(),
+                    friend.getX(),
+                    friend.getY(),
+                    paint);
+
+            canvas.drawBitmap(
+                    enemy.getBitmap(),
+                    enemy.getX(),
+                    enemy.getY(),
+                    paint);
+
 
             if(isGameOver){
                 paint.setTextSize(150);
@@ -162,6 +180,8 @@ public class GameView extends SurfaceView implements Runnable {
         score++;
 
         player.update();
+        friend.update();
+        enemy.update();
 
 
         for (Star s : stars) {
